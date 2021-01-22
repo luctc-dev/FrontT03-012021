@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="./images/diceeLogo@2x.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-image: url('./images/newbackground@2x.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      min-height: 100vh;
+    }
+    .container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+    }
+    .logo img {
+      max-width: 200px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .list-dice {
+      display: flex;
+      margin-top: 80px;
+      justify-content: space-between;
+    }
+    .list-dice img {
+      max-width: 100px;
+    }
+    .roll-dice {
+      background-color: #9b1c1f;
+      padding: 15px 22px;
+      border: 0;
+      font-size: 18px;
+      color: #fff;
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+      margin-top: 100px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .roll-dice:hover {
+      opacity: 0.9;
+    }
+    .roll-dice:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Random xúc sắc cơ bản -->
+  <div class="container">
+    <div class="logo"><img src="./images/diceeLogo@2x.png" alt=""></div>
+    <div class="list-dice">
+      <img class="dice-1" src="./images/dice6@2x.png" alt="">
+      <img id="dice-2" src="./images/dice3@2x.png" alt="">
+    </div>
+    <button class="roll-dice">Roll Dice</button>
+  </div>
+</body>
+  <script src="main.js"></script>
+</html>

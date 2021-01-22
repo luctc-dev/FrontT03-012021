@@ -60,6 +60,30 @@ Nhưng khái niệm phải biết
 - Không có bất kỳ giới hạn nào cho một `component`. Có thể là một file js chỉ chứa duy nhất thẻ <p>. Thậm chí nó có thể là một file js chưa một mã nguồn html cực lớn.
 - Từ khoá `JSX`: Có thể viết cú pháp của HTML bên trong Javascript (Biên dịch ngược lại Javascript thuần)
 - Tools chuyển đổi cú pháp HTML -> JSX: https://magic.reactjs.net/htmltojsx.htm
+- Folder `public` là nơi chứa tất cả những file, thư mục có thể truy xuất bằng đường dẫn
+  - Khi gõ `http://localhost:3000/` -> Tự hiểu mình tìm một cái file gì đó ở trong folder public
 
-- State
-- Props
+- State: Trạng thái -> Có thể thay đổi được -> Chính dữ liệu riêng của mỗi component
+- Props: Property -> Thuộc tính của component
+  ```html 
+  <!--  title là attribute trong HTML -->
+  <p title="Tieu de cua the p">Noi dung cua the p</p>
+  ```
+
+  ```JSX
+
+  <Header siteTitle="Tieu de Website" >Noi dung ben trong</Header>
+  <ComponentHeader>Noi dung ben trong</ComponentHeader>
+  ```
+- Cách Lưu trữ dữ liệu trong Component
+- Cách chuyển đổi dữ liệu qua lại giữa các Component với nhau
+- Chuyển đổi sự kiện qua lại giữa các Component với nhau
+- Props Down - Event Up (Hàm xử lý click, ...)
+
+- Khái niệm `render` và `rerender`
+- `render` trích xuất HTML từ JSX và các biến liên quan -> DOM
+- `rerender` làm lại công việc render một lần nữa với dữ liệu mới
+- Làm sao React biết được khi nào mình thay đổi dữ liệu??
+- Trong React, để thay đổi State 
+  -> Bắt buộc phải do chính nó nắm giữ mới thay đôi 
+  -> Tránh bị lỗi sau này
