@@ -1,3 +1,4 @@
+import { ACT_ADD_NEW_POST } from './actionsType';
 
 const initState = {
   listBlogs: [
@@ -24,7 +25,17 @@ const initState = {
 }
 
 function rootReducer(state = initState, action) {
-  console.log('rootReducer', action);
+  
+  if (action.type === ACT_ADD_NEW_POST) {
+    return {
+      ...state,
+      listBlogs: [
+        action.payload.post,
+        ...state.listBlogs,
+      ]
+    }
+  }
+
   return state;
 }
 

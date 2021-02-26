@@ -1,0 +1,1 @@
+export const ACT_ADD_NEW_POST = 'ACT_ADD_NEW_POST';

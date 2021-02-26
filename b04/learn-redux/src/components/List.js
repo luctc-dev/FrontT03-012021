@@ -11,7 +11,7 @@ export default function List() {
   // )
 
   return (
-    <div>
+    <div className="py-5">
       <div className="row">
         {
         list.map(blogItem => {
