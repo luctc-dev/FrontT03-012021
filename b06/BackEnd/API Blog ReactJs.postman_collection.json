@@ -1,0 +1,705 @@
+{
+	"info": {
+		"_postman_id": "628e922a-7abd-49ae-b299-12c2adfca340",
+		"name": "API Blog ReactJs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "[USER] Register - Custom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test03@gmail.com\",\r\n    \"username\": \"test05\",\r\n    \"password\": \"123\",\r\n    \"nickname\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/wp/v2/users/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"congluc1902\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/jwt-auth/v1/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"jwt-auth",
+								"v1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Check token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{wp_base_url}}/jwt-auth/v1/token/validate",
+							"host": [
+								"{{wp_base_url}}"
+							],
+							"path": [
+								"jwt-auth",
+								"v1",
+								"token",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Create new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test05\",\r\n    \"email\": \"test05@gmail.com\",\r\n    \"password\": \"123456\\\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[COMMENTS] Post New Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author\": 4,\r\n    \"content\": \"User Test 03 demo bình luận bài viết id 45\",\r\n    \"post\": 4555,\r\n    \"parent\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/wp/v2/comments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[COMMENTS] Reply comments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author\": 4,\r\n    \"content\": \"User Test 03 demo bình luận bài viết id 45\",\r\n    \"post\": 4555,\r\n    \"parent\": 22222\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}wp/v2/comments",
+							"host": [
+								"{{base_url}}wp"
+							],
+							"path": [
+								"v2",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[MEDIA] Upload media - Custom",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/apple/Downloads/bg_page_header.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/wp/v2/media",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"media"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "[POSTS] Get List Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/posts?per_page=100&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "100"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderby",
+									"value": "post_views",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[POSTS] Get Post Detail By Slug",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/posts?slug=cung-nhau-tim-hieu-khai-niem-reactjs-la-gi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "slug",
+									"value": "cung-nhau-tim-hieu-khai-niem-reactjs-la-gi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[POSTS] Search Posts by keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/posts?per_page=3&page=1&search=vue",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "vue"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[POSTS] Search Posts by categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/posts?per_page=3&page=1&categories=19,9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "categories",
+									"value": "19,9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[POSTS] Get List Posts By Author - Related Post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/posts?per_page=3&page=1&author=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "author",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Menus] Get Main Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/menus/v1/menus/main-menu-vi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"menus",
+								"v1",
+								"menus",
+								"main-menu-vi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Menus] Get Footer Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{wp_base_url}}/menus/v1/menus/footer-menu",
+							"host": [
+								"{{wp_base_url}}"
+							],
+							"path": [
+								"menus",
+								"v1",
+								"menus",
+								"footer-menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CATEGORY] Get List Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/categories?per_page=100&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "100"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CATEGORY] Get Category by slug",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories?slug=vuejs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "slug",
+									"value": "vuejs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[COMMENTS] Get Comments Parent by PostId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/comments?per_page=3&page=1&post=18&parent=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "post",
+									"value": "18"
+								},
+								{
+									"key": "parent",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Get Info Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhfdffbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sZWFybmluZy1yZWFjdGpzLnh5elwvd3AtYXBpIiwiaWF0IjoxNjE0NDM0MjM2LCJuYmYiOjE2MTQ0MzQyMzYsImV4cCI6MTYxNTAzOTAzNiwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.B-Xh4y7BjNhf-6BAyn6YcBar3sL9nsevUNnx8WtVivw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/wp/v2/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "[USER] Change Password - Custom",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"123123\",\r\n    \"new_password\": \"123123\",\r\n    \"confirm_new_password\": \"123123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/wp/v2/users/password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"wp",
+								"v2",
+								"users",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Update Profile and Avatar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Thong tin mo ta user test02\",\r\n    \"simple_local_avatar\": {\r\n        \"media_id\": 47\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[USER] Change Password - Prevent",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WOO",
+			"item": [
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "{{baseURL}}/wc/v1/products",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token_admin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/wc/v1/products?consumer_key=ck_5f193aeceeb82e40b71e622579b834fb082e3391&consumer_secret=cs_4281e76db4f820d8e399d17674e5a77cdb51e498",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"wc",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "consumer_key",
+											"value": "ck_5f193aeceeb82e40b71e622579b834fb082e3391"
+										},
+										{
+											"key": "consumer_secret",
+											"value": "cs_4281e76db4f820d8e399d17674e5a77cdb51e498"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
