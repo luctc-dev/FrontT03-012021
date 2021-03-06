@@ -14,3 +14,5 @@ export default function HomePage() {
 
   )
 }
+
+// Tương tác với BackEnd từ Javascript 
