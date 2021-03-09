@@ -5,10 +5,12 @@ import logger from 'redux-logger'
 
 import authReducer from './auth/reducer';
 import postsReducer from './posts/reducer';
+import categoriesReducer from './categories/reducer';
 
 const rootReducers = combineReducers({
   Auth: authReducer,
-  Posts: postsReducer
+  Posts: postsReducer,
+  Categories: categoriesReducer
 })
 
 const middleware = applyMiddleware(thunk, logger);

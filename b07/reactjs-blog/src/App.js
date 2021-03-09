@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Switch,
@@ -6,8 +7,15 @@ import {
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+import { useDispatch } from 'react-redux';
+import { actFetchCategoriesAsync } from './store/categories/actions';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actFetchCategoriesAsync())
+  }, [])
 
   return (
     <BrowserRouter>
