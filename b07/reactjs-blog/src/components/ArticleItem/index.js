@@ -13,12 +13,19 @@ export default function ArticleItem({
   isShowDesc = false,
   isShowCategoies = false,
   isShowAvatar = true,
+  post
 }) {
 
   const classes = cls('article-item', {
     'style-card': isStyleCard,
     'style-row': isStyleRow,
   })
+
+  if (!post) {
+    return null;
+  }
+
+  const title = post.title.rendered;
 
   return (
     <article className={classes}>
@@ -28,7 +35,7 @@ export default function ArticleItem({
         { isShowCategoies && <ArticleItemCategories /> }
         { isShowCategoies && <ArticleItemStats /> }
 
-        <ArticleItemTitle />
+        <ArticleItemTitle title={title} />
 
         { isShowDesc && <ArticleItemDesc /> }
 

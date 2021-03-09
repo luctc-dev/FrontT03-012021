@@ -1,8 +1,11 @@
 import './latest-news-list.css';
 import ArticleItem from '../ArticleItem';
 import MainTitle from '../MainTitle';
+import { useSelector } from 'react-redux';
 
 export default function ArticlesLatest() {
+  const posts = useSelector(state => state.Posts.articlesLatest);
+  
   return (
     <div className="latest-news section">
       <div className="tcl-container">
@@ -10,17 +13,13 @@ export default function ArticlesLatest() {
 
         <div className="latest-news__list spacing">
           
-          <div className="latest-news__card">
-            <ArticleItem />
-          </div>
-          
-          <div className="latest-news__card">
-            <ArticleItem />
-          </div>
-
-          <div className="latest-news__card">
-            <ArticleItem />
-          </div>
+          {
+            posts.map(post => (
+              <div className="latest-news__card" key={post.id}>
+                <ArticleItem post={post} />
+              </div>
+            ))
+          }
 
         </div>
       </div>
