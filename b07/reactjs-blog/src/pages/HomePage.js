@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { 
   actFetchPostsAsync,
   actFetchLatestPostsAsync,
-  actFetchPopularPostsAsync
+  actFetchPopularPostsAsync,
+  actResetPosts
 } from '../store/posts/actions';
 
 export default function HomePage() {
@@ -16,6 +17,12 @@ export default function HomePage() {
     dispatch(actFetchPostsAsync())
     dispatch(actFetchLatestPostsAsync())
     dispatch(actFetchPopularPostsAsync())
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      dispatch(actResetPosts());
+    }
   }, [])
 
   return (

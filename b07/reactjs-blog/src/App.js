@@ -7,6 +7,7 @@ import {
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+import SearchPage from './pages/SearchPage';
 import { useDispatch } from 'react-redux';
 import { actFetchCategoriesAsync } from './store/categories/actions';
 
@@ -23,6 +24,10 @@ function App() {
         <Header />
         
         <Switch>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+
           <Route path="/login">
             <h1>Trang Đăng nhập</h1>
           </Route>

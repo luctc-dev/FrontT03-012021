@@ -11,6 +11,7 @@ MainTitle.defaultProps = {
 
 export default function MainTitle({ 
   children,
+  isSearch,
   btnProps: {
     btnText,
     ...restBtnProps
@@ -18,7 +19,8 @@ export default function MainTitle({
 }) {
 
   const classes = cls('main-title spacing', {
-    'd-flex tcl-jc-between tcl-ais-center': btnText
+    'd-flex tcl-jc-between tcl-ais-center': btnText,
+    'main-title__search': isSearch
   })
 
   return (

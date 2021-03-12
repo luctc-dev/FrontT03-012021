@@ -3,6 +3,13 @@ import { PostsService } from '../../services/posts';
 export const ACT_FETCH_LATEST_POSTS = 'ACT_FETCH_LATEST_POSTS';
 export const ACT_FETCH_POPULAR_POSTS = 'ACT_FETCH_POPULAR_POSTS';
 export const ACT_FETCH_POSTS = 'ACT_FETCH_POSTS';
+export const ACT_RESET_POSTS = 'ACT_RESET_POSTS';
+
+export function actResetPosts() {
+  return {
+    type: 'ACT_RESET_POSTS',
+  }
+}
 
 export function actFetchLatestPosts(posts) {
   return {
@@ -66,13 +73,15 @@ export function actFetchPopularPostsAsync() {
 
 export function actFetchPostsAsync({
   page = 1,
-  per_page = 2
+  per_page = 2,
+  ...restParams // Hàm nào dùng để nối 2 object (gộp 2 object)
 } = {}) {
   return async (dispatch, getState) => {
     try {
       const res = await PostsService.getList({
         page, 
-        per_page
+        per_page,
+        ...restParams
       });
       const total_element = parseInt(res.headers['x-wp-total']);
       const total_pages = parseInt(res.headers['x-wp-totalpages']);
