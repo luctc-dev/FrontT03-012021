@@ -7,7 +7,12 @@ import {
 const initPostsState = {
   articlesLatest: [],
   articlesPopular: [],
-  articlesList: []
+  articlesPaging: {
+    items: [],
+    page: 1,
+    per_page: 2,
+    total_element: 0
+  }
 }
 
 export default function postsReducer(state = initPostsState, action) {
@@ -15,7 +20,16 @@ export default function postsReducer(state = initPostsState, action) {
     case ACT_FETCH_POSTS:
       return {
         ...state,
-        articlesList: action.payload.posts
+        articlesPaging: {
+          items: [
+            ...state.articlesPaging.items,
+            ...action.payload.posts
+          ],
+          page: action.payload.page,
+          per_page: action.payload.per_page,
+          total_element: action.payload.total_element,
+          total_pages: action.payload.total_pages,
+        }
       }
     case ACT_FETCH_LATEST_POSTS:
       return {

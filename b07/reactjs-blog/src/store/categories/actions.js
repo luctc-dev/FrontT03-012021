@@ -1,4 +1,4 @@
-import { CategoriesService } from "../../services/categoris";
+import { CategoriesService } from "../../services/categories";
 
 export const ACT_FETCH_CATEGORIES = 'ACT_FETCH_CATEGORIES';
 

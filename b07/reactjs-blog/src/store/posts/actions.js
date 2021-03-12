@@ -20,11 +20,15 @@ export function actFetchPopularPosts(posts) {
     }
   }
 }
-export function actFetchPosts(posts) {
+export function actFetchPosts({ posts, page, per_page, total_element, total_pages }) {
   return {
     type: ACT_FETCH_POSTS,
     payload: {
-      posts
+      posts,
+      page,
+      per_page,
+      total_element,
+      total_pages
     }
   }
 }
@@ -60,13 +64,26 @@ export function actFetchPopularPostsAsync() {
   }
 }
 
-export function actFetchPostsAsync() {
+export function actFetchPostsAsync({
+  page = 1,
+  per_page = 2
+} = {}) {
   return async (dispatch, getState) => {
     try {
-      const res = await PostsService.getList();
-      const posts = res.data;
-
-      dispatch(actFetchPosts(posts)) 
+      const res = await PostsService.getList({
+        page, 
+        per_page
+      });
+      const total_element = parseInt(res.headers['x-wp-total']);
+      const total_pages = parseInt(res.headers['x-wp-totalpages']);
+      
+      dispatch(actFetchPosts({
+        posts: res.data,
+        page: page, 
+        per_page: per_page, 
+        total_element: total_element,
+        total_pages: total_pages,
+      }))
     } catch(err) {
 
     }

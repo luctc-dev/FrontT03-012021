@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actFetchCategoriesAsync())
+    dispatch(actFetchCategoriesAsync());
   }, [])
 
   return (
@@ -43,3 +43,21 @@ function App() {
 }
 
 export default App;
+
+
+/*
+Trong Server có tổng 10 bài viết (total_element = 10)
+Mỗi lần gọi API lấy 3 bài (per_page = 3)
+Khi F5 lại trang lần đầu tiên (page = 1) -> 3 bài
+
+  -> Có tổng cộng bao nhiêu page cần phải lấy thêm?
+
+Nhấn nút load more -> page = page + 1 = 2 -> Gọi API dispatch action -> 3 bài -> Tổng cộng 6 bài, lưu trong reducer
+
+Nhấn nút load more -> page = page + 1 = 3 -> Gọi API dispatch action -> 3 bài -> Tổng cộng 9 bài
+
+Nhấn nút load more -> page = page + 1 = 4 -> Gọi API dispatch action -> 1 bài -> Tổng cộng 10 bài
+
+-> So sánh với total_element -> Nếu đạt đủ số lượng rồi -> Ẩn nút load more
+
+*/

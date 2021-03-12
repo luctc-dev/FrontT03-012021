@@ -26,13 +26,14 @@ export default function ArticleItem({
   }
 
   const title = post.title.rendered;
+  const categoriesId = post.categories;
 
   return (
     <article className={classes}>
       <ArticleItemThumb />
       <div className="article-item__content">
 
-        { isShowCategoies && <ArticleItemCategories /> }
+        { isShowCategoies && <ArticleItemCategories categoriesId={categoriesId} /> }
         { isShowCategoies && <ArticleItemStats /> }
 
         <ArticleItemTitle title={title} />
