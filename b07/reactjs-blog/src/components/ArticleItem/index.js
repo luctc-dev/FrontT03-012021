@@ -27,6 +27,7 @@ export default function ArticleItem({
 
   const title = post.title.rendered;
   const categoriesId = post.categories;
+  const slugLink = `/post/${post.slug}`;
 
   return (
     <article className={classes}>
@@ -36,7 +37,7 @@ export default function ArticleItem({
         { isShowCategoies && <ArticleItemCategories categoriesId={categoriesId} /> }
         { isShowCategoies && <ArticleItemStats /> }
 
-        <ArticleItemTitle title={title} />
+        <ArticleItemTitle title={title} slugLink={slugLink} />
 
         { isShowDesc && <ArticleItemDesc /> }
 

@@ -2,7 +2,9 @@ import {
   ACT_FETCH_POSTS,
   ACT_FETCH_LATEST_POSTS,
   ACT_FETCH_POPULAR_POSTS,
-  ACT_RESET_POSTS
+  ACT_RESET_POSTS,
+  ACT_RELATED_AUTHOR_POSTS,
+  ACT_FETCH_POST_DETAIL
 } from './actions';
 
 const initPostsState = {
@@ -13,11 +15,23 @@ const initPostsState = {
     page: 1,
     per_page: 2,
     total_element: 0
-  }
+  },
+  relatedAuthorPosts: [],
+  postDetail: null
 }
 
 export default function postsReducer(state = initPostsState, action) {
   switch (action.type) {
+    case ACT_FETCH_POST_DETAIL:
+      return {
+        ...state,
+        postDetail: action.payload.data
+      }
+    case ACT_RELATED_AUTHOR_POSTS:
+      return {
+        ...state,
+        relatedAuthorPosts: action.payload.posts
+      }
     case ACT_RESET_POSTS:
       return {
         ...state,

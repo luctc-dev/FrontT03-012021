@@ -11,7 +11,7 @@ export default function ArticleItemInfo({
         isShowAvatar && (
           <div className="article-item__author-image">
             <Link aria-label="John Doe" to="/">
-              <img src="assets/images/john-doe.png" alt="john-doe" />
+              <img src="/assets/images/john-doe.png" alt="john-doe" />
             </Link>
           </div>
         )

@@ -4,13 +4,14 @@ export const ACT_FETCH_LATEST_POSTS = 'ACT_FETCH_LATEST_POSTS';
 export const ACT_FETCH_POPULAR_POSTS = 'ACT_FETCH_POPULAR_POSTS';
 export const ACT_FETCH_POSTS = 'ACT_FETCH_POSTS';
 export const ACT_RESET_POSTS = 'ACT_RESET_POSTS';
+export const ACT_RELATED_AUTHOR_POSTS = 'ACT_RELATED_AUTHOR_POSTS';
+export const ACT_FETCH_POST_DETAIL = 'ACT_FETCH_POST_DETAIL';
 
 export function actResetPosts() {
   return {
     type: 'ACT_RESET_POSTS',
   }
 }
-
 export function actFetchLatestPosts(posts) {
   return {
     type: ACT_FETCH_LATEST_POSTS,
@@ -36,6 +37,22 @@ export function actFetchPosts({ posts, page, per_page, total_element, total_page
       per_page,
       total_element,
       total_pages
+    }
+  }
+}
+export function actFetchRelatedAuthorPosts(posts) {
+  return {
+    type: ACT_RELATED_AUTHOR_POSTS,
+    payload: {
+      posts
+    }
+  }
+}
+export function actFetchPostDetail(data) {
+  return {
+    type: ACT_FETCH_POST_DETAIL,
+    payload: {
+      data
     }
   }
 }
@@ -95,6 +112,44 @@ export function actFetchPostsAsync({
       }))
     } catch(err) {
 
+    }
+  }
+}
+
+export function actFetchRelatedAuthorPostsAsync({ authorId }) {
+  return async dispatch => {
+    try {
+      const response = await PostsService.getList({
+        author: authorId
+      })
+      const posts = response.data;
+      dispatch(actFetchRelatedAuthorPosts(posts))
+    } catch(err) {
+
+    }
+  }
+}
+
+export function actFetchPostDetailAsync({ slug }) {
+  return async (dispatch, getState) => {
+    try {
+      const response = await PostsService.getList({
+        slug
+      });
+      const postDetail = response.data[0];
+      const authorId = postDetail.author;
+      
+      dispatch(actFetchRelatedAuthorPostsAsync({ authorId }));      
+      dispatch(actFetchPostDetail(postDetail));
+
+      return {
+        ok: true
+      }
+    } catch(err) {
+      
+      return {
+        ok: false
+      }
     }
   }
 }

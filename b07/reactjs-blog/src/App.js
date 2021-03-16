@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import SearchPage from './pages/SearchPage';
+import PostDetail from './pages/PostDetail';
 import { useDispatch } from 'react-redux';
 import { actFetchCategoriesAsync } from './store/categories/actions';
 
@@ -27,6 +28,11 @@ function App() {
         <Switch>
           <Route path="/search">
             <SearchPage />
+          </Route>
+          {/* /search?q=ffuwfhwu -> query string -> mặc định trình duyệt hỗ trợ rồi */}
+
+          <Route path="/post/:slug">
+            <PostDetail />
           </Route>
 
           <Route path="/login">
