@@ -3,44 +3,53 @@ import Container from '../components/common/Container';
 import ArticleItem from '../components/ArticleItem';
 import MainTitle from '../components/MainTitle';
 import queryString from 'query-string';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { actFetchPostsAsync, actResetPosts } from '../store/posts/actions';
+import { usePostsPaging } from '../hooks/usePostsPaging';
 import Button from '../components/common/Button';
 
+// Tách ra chung 1 hàm -> Hooks
+// -> Tự tạo cho riêng mình 1 cái hooks 
+// -> Custom Hooks 
+// -> Có thể dùng những Hooks khác
 function SearchPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const searchStr = queryString.parse(location.search).q;
-  const articlesPaging = useSelector(state => state.Posts.articlesPaging);
-  
+
+  const { 
+    posts,
+    isLoading,
+    hasMoreItems,
+    total_element,
+    handleLoadMore
+  } = usePostsPaging({
+    extraParams: { search: searchStr }
+  });
+
   useEffect(() => {
     if (!searchStr) {
       history.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr])
 
   useEffect(() => {
     dispatch(actFetchPostsAsync({
       search: searchStr
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr])
 
   useEffect(() => {
     return () => {
       dispatch(actResetPosts());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const {
-    items: posts,
-    // page,
-    // per_page,
-    // total_pages,
-    total_element
-  } = articlesPaging;
 
   return (
     <div className="articles-list section">
@@ -55,14 +64,18 @@ function SearchPage() {
             </div>
           ))
         }
-        <div className="text-center">
-          <Button 
-            size="large" 
-            variant="primary" 
-            // loading={isLoading}
-            // onClick={handleLoadMore}
-          >Tải thêm</Button>
-        </div>
+        {
+          hasMoreItems && (
+            <div className="text-center">
+              <Button 
+                size="large" 
+                variant="primary" 
+                loading={isLoading}
+                onClick={handleLoadMore}
+              >Tải thêm</Button>
+            </div>
+          )
+        }
       </Container>
     </div>
   )

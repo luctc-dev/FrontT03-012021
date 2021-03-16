@@ -1,40 +1,17 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import ArticleItem from '../ArticleItem';
 import Button from '../common/Button';
 import Col from '../common/Col';
 import Container from '../common/Container';
 import MainTitle from '../MainTitle';
-import { actFetchPostsAsync } from '../../store/posts/actions';
+import { usePostsPaging } from '../../hooks/usePostsPaging';
 
 export default function ArticlesList() {
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const articlesPaging = useSelector(state => state.Posts.articlesPaging);
-  const {
-    items: posts,
-    page,
-    per_page,
-    // total_element,
-    total_pages
-  } = articlesPaging;
-  const hasMoreItems = page < total_pages;
-
-  async function handleLoadMore() {
-    if (isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-    await dispatch(actFetchPostsAsync({
-      page: page + 1,
-      per_page: per_page,
-    }))
-    setIsLoading(false);
-    // .then(res => {
-    //   setIsLoading(false);
-    // })
-  }
+  const { 
+    posts,
+    isLoading,
+    hasMoreItems,
+    handleLoadMore
+  } = usePostsPaging()
 
   return (
     <div className="articles-list section">

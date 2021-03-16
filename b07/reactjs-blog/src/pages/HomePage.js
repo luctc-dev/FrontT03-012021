@@ -17,12 +17,14 @@ export default function HomePage() {
     dispatch(actFetchPostsAsync())
     dispatch(actFetchLatestPostsAsync())
     dispatch(actFetchPopularPostsAsync())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     return () => {
       dispatch(actResetPosts());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
