@@ -15,7 +15,7 @@ const rootReducers = combineReducers({
   Menus: menusReducer
 })
 
-const middleware = applyMiddleware(thunk);
+const middleware = applyMiddleware(thunk, logger);
 
 const store = createStore(rootReducers, middleware);
 

@@ -24,7 +24,6 @@ function handleMapComponent(menuItem) {
 
 export default function MainMenus() {
   const listMenus = useSelector(state => state.Menus.mainMenus);
-  console.log(listMenus);
   return (
     <ul className="header-nav__lists">
       { listMenus.map(handleMapComponent) }

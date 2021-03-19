@@ -49,7 +49,7 @@ function App() {
             <HomePage />
           </Route>
         </Switch>
-
+        <div className="spacing"></div>
         <Footer />
       </div>
     </BrowserRouter>
