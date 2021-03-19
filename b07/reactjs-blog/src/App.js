@@ -11,12 +11,14 @@ import SearchPage from './pages/SearchPage';
 import PostDetail from './pages/PostDetail';
 import { useDispatch } from 'react-redux';
 import { actFetchCategoriesAsync } from './store/categories/actions';
+import { actFetchMainMenusAsync } from "./store/menus/actions";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(actFetchCategoriesAsync());
+    dispatch(actFetchMainMenusAsync());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
