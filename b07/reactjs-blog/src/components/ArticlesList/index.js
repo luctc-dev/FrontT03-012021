@@ -3,15 +3,15 @@ import Button from '../common/Button';
 import Col from '../common/Col';
 import Container from '../common/Container';
 import MainTitle from '../MainTitle';
-import { usePostsPaging } from '../../hooks/usePostsPaging';
+import { usePaging } from '../../hooks/usePaging';
 
 export default function ArticlesList() {
   const { 
-    posts,
+    items: posts,
     isLoading,
     hasMoreItems,
     handleLoadMore
-  } = usePostsPaging()
+  } = usePaging()
 
   return (
     <div className="articles-list section">

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { actFetchPostsAsync, actResetPosts } from '../store/posts/actions';
-import { usePostsPaging } from '../hooks/usePostsPaging';
+import { usePaging } from '../hooks/usePaging';
 import Button from '../components/common/Button';
 
 // Tách ra chung 1 hàm -> Hooks
@@ -21,12 +21,12 @@ function SearchPage() {
   const searchStr = queryString.parse(location.search).q;
 
   const { 
-    posts,
+    items: posts,
     isLoading,
     hasMoreItems,
     total_element,
     handleLoadMore
-  } = usePostsPaging({
+  } = usePaging({
     extraParams: { search: searchStr }
   });
 

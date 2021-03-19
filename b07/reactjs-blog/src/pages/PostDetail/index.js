@@ -11,6 +11,7 @@ import Col from '../../components/common/Col';
 import Container from '../../components/common/Container';
 import PostDetailContent from '../../components/PostDetail/PostDetailContent';
 import PostDetailHead from '../../components/PostDetail/PostDetailHead'
+import { actResetComments } from '../../store/comments/actions';
 
 function PostDetail() {
   const params = useParams();
@@ -19,6 +20,12 @@ function PostDetail() {
   const [loadingStatus, setLoadingStatus] = useState('loading'); // loading , success , error 
 
   const slug = params.slug;
+
+  useEffect(() => {
+    return () => {
+      dispatch(actResetComments())
+    }
+  }, [slug, dispatch])
 
   useEffect(() => {
     setLoadingStatus('loading');

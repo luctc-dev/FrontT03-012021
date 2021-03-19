@@ -7,12 +7,14 @@ import authReducer from './auth/reducer';
 import postsReducer from './posts/reducer';
 import categoriesReducer from './categories/reducer';
 import menusReducer from './menus/reducer';
+import commentsReducer from './comments/reducer';
 
 const rootReducers = combineReducers({
   Auth: authReducer,
   Posts: postsReducer,
   Categories: categoriesReducer,
-  Menus: menusReducer
+  Menus: menusReducer,
+  Comments: commentsReducer
 })
 
 const middleware = applyMiddleware(thunk, logger);

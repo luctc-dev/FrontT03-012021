@@ -1,4 +1,5 @@
 import { PostsService } from '../../services/posts';
+import { actFetchCommentsAsync } from '../comments/actions';
 
 export const ACT_FETCH_LATEST_POSTS = 'ACT_FETCH_LATEST_POSTS';
 export const ACT_FETCH_POPULAR_POSTS = 'ACT_FETCH_POPULAR_POSTS';
@@ -138,8 +139,15 @@ export function actFetchPostDetailAsync({ slug }) {
       });
       const postDetail = response.data[0];
       const authorId = postDetail.author;
+      const postId = postDetail.id;
       
       dispatch(actFetchRelatedAuthorPostsAsync({ authorId }));      
+      dispatch(actFetchCommentsAsync({
+        page: 1,
+        per_page: 5,
+        parentId: 0,
+        postId
+      }))
       dispatch(actFetchPostDetail(postDetail));
 
       return {

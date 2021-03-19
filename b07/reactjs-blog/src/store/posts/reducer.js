@@ -46,16 +46,16 @@ export default function postsReducer(state = initPostsState, action) {
       return {
         ...state,
         articlesPaging: {
-          // items: action.payload.page === 1 
-          //   ? action.payload.posts 
-          //   : [
-          //     ...state.articlesPaging.items,
-          //     ...action.payload.posts
-          //   ],
-          items: [
-            ...state.articlesPaging.items,
-            ...action.payload.posts
-          ],
+          items: action.payload.page === 1 
+            ? action.payload.posts 
+            : [
+              ...state.articlesPaging.items,
+              ...action.payload.posts
+            ],
+          // items: [
+          //   ...state.articlesPaging.items,
+          //   ...action.payload.posts
+          // ],
           page: action.payload.page,
           per_page: action.payload.per_page,
           total_element: action.payload.total_element,
