@@ -30,7 +30,7 @@ function handleMap(menuItem) {
 export const actFetchMainMenusAsync = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await MenusService.getMenusBySlug();
+      const response = await MenusService.getMenusBySlug('main-menu-vi');
       const menus = response.data.items; // Dữ liệu thô - Raw data
 
       const newMenus = menus.map(handleMap); // Dữ liệu đã xử lý
