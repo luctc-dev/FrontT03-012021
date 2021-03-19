@@ -6,11 +6,13 @@ import logger from 'redux-logger'
 import authReducer from './auth/reducer';
 import postsReducer from './posts/reducer';
 import categoriesReducer from './categories/reducer';
+import menusReducer from './menus/reducer';
 
 const rootReducers = combineReducers({
   Auth: authReducer,
   Posts: postsReducer,
-  Categories: categoriesReducer
+  Categories: categoriesReducer,
+  Menus: menusReducer
 })
 
 const middleware = applyMiddleware(thunk, logger);
