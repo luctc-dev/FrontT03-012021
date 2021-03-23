@@ -9,9 +9,11 @@ import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import SearchPage from './pages/SearchPage';
 import PostDetail from './pages/PostDetail';
+import LoginPage from "./pages/Login";
 import { useDispatch } from 'react-redux';
 import { actFetchCategoriesAsync } from './store/categories/actions';
 import { actFetchMainMenusAsync } from "./store/menus/actions";
+import { actFetchMeInfoAsync } from "./store/auth/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,12 +24,20 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    dispatch(actFetchMeInfoAsync())
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="wrapper-content">
         <Header />
         
         <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+
           <Route path="/search">
             <SearchPage />
           </Route>
