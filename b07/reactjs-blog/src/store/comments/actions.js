@@ -1,7 +1,18 @@
 import { CommentsService } from "../../services/comments";
 
 export const ACT_SET_COMMENTS_PARENT = 'ACT_SET_COMMENTS_PARENT';
+export const ACT_SET_COMMENTS_REPLY = 'ACT_SET_COMMENTS_REPLY';
 export const ACT_RESET_COMMENTS_PARENT = 'ACT_RESET_COMMENTS_PARENT';
+export const ACT_INIT_COMMENTS_REPLY_PAGING = 'ACT_INIT_COMMENTS_REPLY_PAGING';
+
+export function actInitCommentsReplyPaging(comments) {
+  return {
+    type: ACT_INIT_COMMENTS_REPLY_PAGING,
+    payload: {
+      comments
+    }
+  }
+}
 
 export function actResetComments() {
   return {
@@ -20,7 +31,7 @@ export const actFetchComments = ({
 
 
   return {
-    type: ACT_SET_COMMENTS_PARENT,
+    type: parentId === 0 ? ACT_SET_COMMENTS_PARENT : ACT_SET_COMMENTS_REPLY,
     payload: { 
       comments, 
       page, 
@@ -60,9 +71,12 @@ export function actFetchCommentsAsync({
         total_pages,
         parentId,
         total_element
-      }))
-     
+      }));
 
+      if (parentId === 0) {
+        dispatch(actInitCommentsReplyPaging(comments))
+      }
+     
     } catch(e) {
 
     }

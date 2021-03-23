@@ -105,3 +105,7 @@
   .comments .comments__form {
     margin-left: 42px;
     margin-top: 1rem; }
+
+    .comments__hidden svg {
+      width: 1em;
+    }

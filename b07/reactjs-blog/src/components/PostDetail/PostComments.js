@@ -36,6 +36,7 @@ export default function PostComments() {
               <PostCommentItem 
                 isParent
                 key={commentParentItem.id} 
+                postId={postId}
                 comment={commentParentItem} 
               />
             );
