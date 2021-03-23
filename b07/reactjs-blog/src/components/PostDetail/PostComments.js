@@ -28,7 +28,7 @@ export default function PostComments() {
   return (
     <div className="post-detail__comments">
       <PostCommentForm />
-      <p>20 Comments</p>
+      <p>{ postDetail.comment_count } Bình luận</p>
       <ul className="comments">
         {
           commentsParent.map(commentParentItem => {

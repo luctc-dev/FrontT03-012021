@@ -8,7 +8,7 @@ import {
 const initState = {
   commentsParentPaging: genPagingObj(),
   commentsReplyPaging: {
-    
+  
   }
 }
 
@@ -50,6 +50,9 @@ export default function reducer(state = initState, action) {
           page: 1,
           per_page: 2,
           total_element: 0
+        },
+        commentsReplyPaging: {
+          
         }
       }
     case ACT_SET_COMMENTS_REPLY:
