@@ -17,9 +17,7 @@ export default function PostCommentItem({ isParent, comment, postId }) {
     }
     return [];
   })
-  if (cmtParentId === 10) {
-    console.log('exclude = ', exclude);
-  }
+
   const {
     items: commentsReply,
     page,
@@ -48,7 +46,7 @@ export default function PostCommentItem({ isParent, comment, postId }) {
       if (loadingFirstPage) {
         return;
       }
-      console.log('clickShowReply page = 0 | exclude = ', exclude)
+
       setLoadingFirstPage(true);
       dispatch(
         actFetchCommentsAsync({

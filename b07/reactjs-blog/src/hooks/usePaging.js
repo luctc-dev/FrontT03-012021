@@ -20,9 +20,8 @@ export function usePaging({
     ...restItemsPaging
   } = itemsPaging;
   const hasMoreItems = page < total_pages;
-  console.log('extraParams', extraParams);
+
   async function handleLoadMore() {
-    console.log('handleLoadMore', extraParams);
     if (isLoading) {
       return;
     }
