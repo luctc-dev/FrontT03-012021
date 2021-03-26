@@ -1,4 +1,4 @@
-import { ACT_ADD_NEW_COMMENT } from '../comments/actions';
+import { ACT_ADD_NEW_COMMENT_PARENT } from '../comments/actions';
 import {
   ACT_FETCH_POSTS,
   ACT_FETCH_LATEST_POSTS,
@@ -23,7 +23,7 @@ const initPostsState = {
 
 export default function postsReducer(state = initPostsState, action) {
   switch (action.type) {
-    case ACT_ADD_NEW_COMMENT:
+    case ACT_ADD_NEW_COMMENT_PARENT:
       return {
         ...state,
         postDetail: {

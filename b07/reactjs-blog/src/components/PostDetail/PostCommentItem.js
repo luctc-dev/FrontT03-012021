@@ -1,16 +1,25 @@
-// import PostCommentForm from "./PostCommentForm";
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { usePaging } from '../../hooks/usePaging';
 import { actFetchCommentsAsync } from '../../store/comments/actions';
 import { genPagingObj } from '../../store/comments/reducer';
 import Loading from '../common/Loading';
+import PostCommentForm from "./PostCommentForm";
 
 export default function PostCommentItem({ isParent, comment, postId }) {
   const dispatch = useDispatch();
   const cmtParentId = comment.id;
+  const [isShowForm, setIsShowForm] = useState(false);
   const [loadingFirstPage, setLoadingFirstPage] = useState(false);
-  
+  const exclude = useSelector(state => {
+    if (state.Comments.commentsReplyPaging[`parent-id-${cmtParentId}`]) {
+      return state.Comments.commentsReplyPaging[`parent-id-${cmtParentId}`].exclude;
+    }
+    return [];
+  })
+  if (cmtParentId === 10) {
+    console.log('exclude = ', exclude);
+  }
   const {
     items: commentsReply,
     page,
@@ -20,6 +29,7 @@ export default function PostCommentItem({ isParent, comment, postId }) {
     extraParams: {
       postId: postId,
       parentId: cmtParentId,
+      exclude
     },
     actionAsync: actFetchCommentsAsync,
     funcSelector: state => {
@@ -38,13 +48,14 @@ export default function PostCommentItem({ isParent, comment, postId }) {
       if (loadingFirstPage) {
         return;
       }
-
+      console.log('clickShowReply page = 0 | exclude = ', exclude)
       setLoadingFirstPage(true);
       dispatch(
         actFetchCommentsAsync({
           page: 1,
           postId: postId,
           parentId: cmtParentId,
+          exclude
         })
       ).then(() => {
         setLoadingFirstPage(false)
@@ -52,6 +63,10 @@ export default function PostCommentItem({ isParent, comment, postId }) {
     } else {
       handleLoadMore();
     }
+  }
+
+  function toggleShowForm() {
+    setIsShowForm(!isShowForm);
   }
   
   return (
@@ -68,11 +83,13 @@ export default function PostCommentItem({ isParent, comment, postId }) {
         </div>
         <div className="comments__section--content">
           <a href="/" className="comments__section--user">{comment.author_name}</a>
-          <p className="comments__section--time">2 minutes ago</p>
+          <p className="comments__section--time">2 minutes ago { !isParent && <a href="/">Trả lời</a> }</p>
           <div className="comments__section--text" dangerouslySetInnerHTML={{
             __html: comment.content.rendered
           }}></div>
-          <i className="ion-reply comments__section--reply"></i>
+          {
+            isParent && <i className="ion-reply comments__section--reply" onClick={toggleShowForm} /> 
+          }
         </div>
       </div>
       {
@@ -101,7 +118,14 @@ export default function PostCommentItem({ isParent, comment, postId }) {
         )
       }
       
-      {/* <PostCommentForm /> */}
+      {
+        isParent && isShowForm && (
+          <PostCommentForm 
+            parentId={cmtParentId}
+            placeholder={`@${comment.author_name}`}
+          />
+        )
+      }
     </li>
   )
 }

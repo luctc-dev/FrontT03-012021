@@ -3,7 +3,8 @@ import {
   ACT_SET_COMMENTS_PARENT, 
   ACT_RESET_COMMENTS_PARENT,
   ACT_INIT_COMMENTS_REPLY_PAGING,
-  ACT_ADD_NEW_COMMENT,
+  ACT_ADD_NEW_COMMENT_PARENT,
+  ACT_ADD_NEW_COMMENT_CHILD,
 } from './actions';
 
 const initState = {
@@ -25,7 +26,38 @@ export function genPagingObj() {
 
 export default function reducer(state = initState, action) {
   switch (action.type) {
-    case ACT_ADD_NEW_COMMENT:
+    case ACT_ADD_NEW_COMMENT_CHILD:
+      let key = 'parent-id-' + action.payload.parentId;
+      return {
+        ...state,
+        commentsParentPaging: {
+          ...state.commentsParentPaging,
+          items: state.commentsParentPaging.items.map(item => {
+            if (item.id === action.payload.parentId) {
+              return {
+                ...item,
+                comment_reply_count: item.comment_reply_count + 1
+              }
+            }
+            return item;
+          })
+        },
+        commentsReplyPaging: {
+          ...state.commentsReplyPaging,
+          [key]: {
+            ...state.commentsReplyPaging[key],
+            exclude: [
+              ...state.commentsReplyPaging[key].exclude,
+              action.payload.newComment.id
+            ],
+            items: [
+              ...state.commentsReplyPaging[key].items,
+              action.payload.newComment
+            ]
+          }
+        }
+      }
+    case ACT_ADD_NEW_COMMENT_PARENT:
       return {
         ...state,
         commentsParentPaging: {
@@ -69,13 +101,18 @@ export default function reducer(state = initState, action) {
       }
     case ACT_SET_COMMENTS_REPLY:
       const keyReply = 'parent-id-' + action.payload.parentId;
+      
       return {
         ...state,
         commentsReplyPaging: {
           ...state.commentsReplyPaging,
           [keyReply]: {
+            ...state.commentsReplyPaging[keyReply],
             items: action.payload.page === 1 
-              ? action.payload.comments 
+              ? [
+                ...action.payload.comments,
+                ...state.commentsReplyPaging[keyReply].items
+              ] 
               : [
                 ...state.commentsReplyPaging[keyReply].items,
                 ...action.payload.comments

@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { actPostNewCommentAsync } from "../../store/comments/actions";
 import Button from "../common/Button";
 
-export default function PostCommentForm({ parentId }) {
+export default function PostCommentForm({ 
+  parentId,
+  placeholder = 'Nhập bình luận của bạn ...'
+}) {
   const dispatch = useDispatch();
   const [commentStr, setCommentStr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +54,7 @@ export default function PostCommentForm({ parentId }) {
             <img src={avatar} alt="" />
           </a>
         </div>
-        <textarea value={commentStr} onChange={onChange} placeholder="Nhập bình luận của bạn ..." />
+        <textarea value={commentStr} onChange={onChange} placeholder={placeholder} />
       </div>
       <div className="text-right">
         <Button loading={isLoading} onClick={handleSubmit}>Submit</Button>

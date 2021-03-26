@@ -4,7 +4,8 @@ export const ACT_SET_COMMENTS_PARENT = 'ACT_SET_COMMENTS_PARENT';
 export const ACT_SET_COMMENTS_REPLY = 'ACT_SET_COMMENTS_REPLY';
 export const ACT_RESET_COMMENTS_PARENT = 'ACT_RESET_COMMENTS_PARENT';
 export const ACT_INIT_COMMENTS_REPLY_PAGING = 'ACT_INIT_COMMENTS_REPLY_PAGING';
-export const ACT_ADD_NEW_COMMENT = 'ACT_ADD_NEW_COMMENT';
+export const ACT_ADD_NEW_COMMENT_PARENT = 'ACT_ADD_NEW_COMMENT_PARENT';
+export const ACT_ADD_NEW_COMMENT_CHILD = 'ACT_ADD_NEW_COMMENT_CHILD';
 
 export function actInitCommentsReplyPaging(comments) {
   return {
@@ -21,11 +22,15 @@ export function actResetComments() {
   }
 }
 
-export function actAddNewComment(newComment) {
+export function actAddNewComment({
+  comment: newComment,
+  parentId
+}) {
   return {
-    type: ACT_ADD_NEW_COMMENT,
+    type: parentId === 0 ? ACT_ADD_NEW_COMMENT_PARENT : ACT_ADD_NEW_COMMENT_CHILD,
     payload: {
-      newComment
+      newComment,
+      parentId
     }
   }
 }
@@ -109,7 +114,10 @@ export function actPostNewCommentAsync({
         parentId
       });
       const comment = response.data;
-      dispatch(actAddNewComment(comment));
+      dispatch(actAddNewComment({
+        comment,
+        parentId
+      }));
 
       return {
         ok: true
