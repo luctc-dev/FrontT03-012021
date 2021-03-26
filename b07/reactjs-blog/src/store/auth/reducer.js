@@ -1,4 +1,4 @@
-import { ACT_FETCH_ME_INFO } from "./actions";
+import { ACT_FETCH_ME_INFO, ACT_LOGOUT } from "./actions";
 
 export const TOKEN_KEY = 'xssss';
 
@@ -14,6 +14,13 @@ export default function authReducer(state = initAuthState, action) {
         ...state,
         token: localStorage.getItem(TOKEN_KEY),
         currentUser: action.payload.currentUser
+      }
+    case ACT_LOGOUT:
+      localStorage.removeItem(TOKEN_KEY);
+      return {
+        ...state,
+        currentUser: null,
+        token: ''
       }
     default:
       return state;

@@ -1,7 +1,14 @@
 import { AuthService } from "../../services/auth"
 import { TOKEN_KEY } from "./reducer";
 
+export const ACT_LOGOUT = 'ACT_LOGOUT';
 export const ACT_FETCH_ME_INFO = 'ACT_FETCH_ME_INFO';
+
+export function actLogout() {
+  return {
+    type: ACT_LOGOUT
+  }
+}
 
 export function actFetchMeInfo(currentUser) {
   return {

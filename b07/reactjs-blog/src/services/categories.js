@@ -6,7 +6,7 @@ export const CategoriesService = {
     page = 1,
     ...restParams
   } = {}) {
-    return api.get('/wp/v2/categories', {
+    return api.call().get('/wp/v2/categories', {
       params: {
         per_page: per_page,
         page: page,

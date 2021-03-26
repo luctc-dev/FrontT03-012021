@@ -5,16 +5,32 @@ export const CommentsService = {
     per_page = 100,
     page = 1,
     post,
-    parent = 0
+    parent = 0,
+    ...restParams
   } = {}) {
-    return api.get('/wp/v2/comments', {
+    return api.call().get('/wp/v2/comments', {
       params: {
         per_page: per_page,
         page: page,
         post,
         parent,
-        lang: 'vi'
+        order: 'asc',
+        lang: 'vi',
+        ...restParams
       }
     })
   },
+  postNewComment({
+    authorId,
+    content,
+    postId,
+    parentId
+  }) {
+    return api.callWithToken().post('/wp/v2/comments', {
+      author: authorId,
+      content,
+      post: postId,
+      parent: parentId
+    })
+  }
 }

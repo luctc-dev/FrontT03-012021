@@ -16,10 +16,11 @@ export function usePaging({
     page,
     per_page,
     total_pages,
-    total_element
+    total_element,
+    ...restItemsPaging
   } = itemsPaging;
   const hasMoreItems = page < total_pages;
-
+  
   async function handleLoadMore() {
     if (isLoading) {
       return;
@@ -39,6 +40,7 @@ export function usePaging({
     isLoading,
     hasMoreItems,
     total_element,
-    handleLoadMore
+    handleLoadMore,
+    ...restItemsPaging
   }
 }

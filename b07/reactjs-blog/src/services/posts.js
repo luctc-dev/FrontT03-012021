@@ -6,7 +6,7 @@ export const PostsService = {
     page = 1,
     ...restParams // { orderBy }
   } = {}) {
-    return api.get('/wp/v2/posts', {
+    return api.call().get('/wp/v2/posts', {
       params: {
         per_page: per_page,
         page: page,

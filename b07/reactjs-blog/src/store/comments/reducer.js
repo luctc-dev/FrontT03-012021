@@ -3,6 +3,7 @@ import {
   ACT_SET_COMMENTS_PARENT, 
   ACT_RESET_COMMENTS_PARENT,
   ACT_INIT_COMMENTS_REPLY_PAGING,
+  ACT_ADD_NEW_COMMENT,
 } from './actions';
 
 const initState = {
@@ -17,12 +18,28 @@ export function genPagingObj() {
     items: [],
     page: 0,
     per_page: 2,
-    total_element: 0
+    total_element: 0,
+    exclude: []
   }
 }
 
 export default function reducer(state = initState, action) {
   switch (action.type) {
+    case ACT_ADD_NEW_COMMENT:
+      return {
+        ...state,
+        commentsParentPaging: {
+          ...state.commentsParentPaging,
+          exclude: [
+            ...state.commentsParentPaging.exclude,
+            action.payload.newComment.id
+          ],
+          items: [
+            ...state.commentsParentPaging.items,
+            action.payload.newComment
+          ]
+        }
+      }
     case ACT_INIT_COMMENTS_REPLY_PAGING:
       const newCmtsReplyPaging = {
         ...state.commentsReplyPaging
@@ -45,12 +62,7 @@ export default function reducer(state = initState, action) {
     case ACT_RESET_COMMENTS_PARENT:
       return {
         ...state,
-        commentsParentPaging: {
-          items: [],
-          page: 1,
-          per_page: 2,
-          total_element: 0
-        },
+        commentsParentPaging: genPagingObj(),
         commentsReplyPaging: {
           
         }
@@ -79,6 +91,7 @@ export default function reducer(state = initState, action) {
       return {
         ...state,
         commentsParentPaging: {
+          ...state.commentsParentPaging,
           items: [
             ...state.commentsParentPaging.items,
             ...action.payload.comments
