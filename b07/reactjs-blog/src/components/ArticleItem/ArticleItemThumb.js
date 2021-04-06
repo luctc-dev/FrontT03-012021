@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 
-export default function ArticleItemThumb() {
-  return (
-    <div className="article-item__thumbnail">
-      <Link to="/">
-        <img src="/assets/images/blog-1.jpg" alt="/assets/images/blog-1.jpg" />
-      </Link>
-    </div>
-  )
+const DEFAULT_IMAGE = 'https://www.tibs.org.tw/images/default.jpg';
+
+export default function ArticleItemThumbnail({
+    thumbnail,
+    slugLink,
+    title,
+}) {
+    return (
+        <div className="article-item__thumbnail">
+            <Link to={slugLink}>
+                <img src={thumbnail || DEFAULT_IMAGE} alt={title}/>
+            </Link>
+        </div>
+    )
 }

@@ -29,19 +29,42 @@ export default function ArticleItem({
   const categoriesId = post.categories;
   const slugLink = `/post/${post.slug}`;
 
+  const thumbnail = post.featured_media_url;
+
+  const authorId = post.author;
+  const authorName = post.author_data.nickname;
+  const authorAvatar = post.author_data.avatar;
+  const authorLink = `/user/${post.author}`;
+
+  const created = post.date;
+
+  const shortDesc = post.excerpt.rendered
+  const viewCount = post.view_count;
+
   return (
     <article className={classes}>
-      <ArticleItemThumb />
+      <ArticleItemThumb 
+        title={title}
+        slugLink={slugLink}
+        thumbnail={thumbnail}
+      />
       <div className="article-item__content">
 
         { isShowCategoies && <ArticleItemCategories categoriesId={categoriesId} /> }
-        { isShowCategoies && <ArticleItemStats /> }
+        { isShowCategoies && <ArticleItemStats viewCount={viewCount} /> }
 
         <ArticleItemTitle title={title} slugLink={slugLink} />
 
-        { isShowDesc && <ArticleItemDesc /> }
+        { isShowDesc && <ArticleItemDesc shortDesc={shortDesc} /> }
 
-        <ArticleItemInfo isShowAvatar={isShowAvatar} />
+        <ArticleItemInfo 
+          isShowAvatar={isShowAvatar} 
+          created={created}
+          authorId={authorId}
+          authorName={authorName}
+          authorLink={authorLink}
+          authorAvatar={authorAvatar}
+        />
       </div>
     </article>
   )
