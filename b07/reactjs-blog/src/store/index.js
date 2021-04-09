@@ -9,6 +9,7 @@ import categoriesReducer from './categories/reducer';
 import menusReducer from './menus/reducer';
 import commentsReducer from './comments/reducer';
 import userReducer from './user/reducer';
+import appReducer from './app/reducer';
 
 const rootReducers = combineReducers({
   Auth: authReducer,
@@ -16,10 +17,12 @@ const rootReducers = combineReducers({
   Categories: categoriesReducer,
   Menus: menusReducer,
   Comments: commentsReducer,
-  User: userReducer
+  User: userReducer,
+  App: appReducer
 })
 
-const middleware = applyMiddleware(thunk, logger);
+// const middleware = applyMiddleware(thunk, logger);
+const middleware = applyMiddleware(thunk);
 
 const store = createStore(rootReducers, middleware);
 

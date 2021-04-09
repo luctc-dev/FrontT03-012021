@@ -1,6 +1,8 @@
 
 import api from "./api"
 
+const cachedData = { }
+
 export const AuthService = {
   login({
     username,
@@ -11,7 +13,15 @@ export const AuthService = {
       password
     })
   },
-  getMeInfo() {
-    return api.callWithToken().get('/wp/v2/users/me')
+  async getMeInfo() {
+    const url = '/wp/v2/users/me';
+
+    if (cachedData[url]) {
+      return cachedData[url];
+    }
+
+    const response = await  api.callWithToken().get(url);
+    cachedData[url] = response;
+    return response
   }
 }

@@ -1,26 +1,44 @@
 import api from "./api"
 
+const cachedData = {
+
+}
+
 export const PostsService = {
-  getList({
+  async getList({
     per_page = 3,
     page = 1,
+    lang,
     ...restParams // { orderBy }
   } = {}) {
-    return api.call().get('/wp/v2/posts', {
-      params: {
-        per_page: per_page,
-        page: page,
-        lang: 'vi',
-        ...restParams
-      }
+    // console.log('[posts] cachedData', cachedData);
+    const params = {
+      per_page: per_page,
+      page: page,
+      lang: lang,
+      ...restParams
+    }
+    const strParams = JSON.stringify(params);
+
+    if (cachedData[strParams]) {
+      return cachedData[strParams];
+    }
+
+    const response = await api.call().get('/wp/v2/posts', {
+      params
     })
+    
+    cachedData[strParams] = response;
+
+    return response;
   },
-  getLatestList() {
-    return PostsService.getList()
+  getLatestList({ lang }) {
+    return PostsService.getList({ lang })
   },
-  getPopularList() {
+  getPopularList({ lang }) {
     return PostsService.getList({
-      orderby: 'post_views'
+      orderby: 'post_views',
+      lang
     });
   }
 }

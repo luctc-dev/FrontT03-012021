@@ -11,10 +11,10 @@ export function actFetchCategories(categories) {
   }
 }
 
-export function actFetchCategoriesAsync() {
+export function actFetchCategoriesAsync(lang) {
   return async (dispatch, getState) => {
     try {
-      const response = await CategoriesService.getList();
+      const response = await CategoriesService.getList({ lang });
       const categories = response.data;
 
       dispatch(actFetchCategories(categories))

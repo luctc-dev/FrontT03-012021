@@ -27,10 +27,10 @@ function handleMap(menuItem) {
   return data;
 }
 
-export const actFetchMainMenusAsync = () => {
+export const actFetchMainMenusAsync = (lang) => {
   return async (dispatch, getState) => {
     try {
-      const response = await MenusService.getMenusBySlug('main-menu-vi');
+      const response = await MenusService.getMenusBySlug('main-menu-' + lang);
       const menus = response.data.items; // Dữ liệu thô - Raw data
 
       const newMenus = menus.map(handleMap); // Dữ liệu đã xử lý

@@ -10,26 +10,43 @@ import SearchPage from './pages/SearchPage';
 import PostDetail from './pages/PostDetail';
 import LoginPage from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { actFetchCategoriesAsync } from './store/categories/actions';
 import { actFetchMainMenusAsync } from "./store/menus/actions";
 import { actFetchMeInfoAsync } from "./store/auth/actions";
 
+import { i18n } from '@lingui/core'
+import { messages as messagesVi } from './locales/vi/messages'
+import { messages as messagesEn } from './locales/en/messages';
+import { messages as messagesFr } from './locales/fr/messages';
+
+const message = {
+  vi: messagesVi,
+  en: messagesEn,
+  fr: messagesFr
+}
+
 function App() {
   const dispatch = useDispatch();
   const isDashboard = useRouteMatch('/dashboard');
+  const lang = useSelector(state => state.App.lang);
 
   useEffect(() => {
-    dispatch(actFetchCategoriesAsync());
-    dispatch(actFetchMainMenusAsync());
+    dispatch(actFetchCategoriesAsync(lang));
+    dispatch(actFetchMainMenusAsync(lang));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [lang])
 
   useEffect(() => {
     dispatch(actFetchMeInfoAsync())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    i18n.load(lang, message[lang])
+    i18n.activate(lang)
+  }, [lang])
 
   return (
     <main>

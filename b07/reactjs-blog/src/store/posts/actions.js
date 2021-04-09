@@ -63,10 +63,10 @@ export function actFetchPostDetail(data) {
  * Async Action
  */
 
-export function actFetchLatestPostsAsync() {
+export function actFetchLatestPostsAsync({ lang }) {
   return async (dispatch, getState) => {
     try {
-      const res = await PostsService.getLatestList();
+      const res = await PostsService.getLatestList({ lang });
       const posts = res.data;
 
       dispatch(actFetchLatestPosts(posts))
@@ -76,10 +76,10 @@ export function actFetchLatestPostsAsync() {
   }
 }
 
-export function actFetchPopularPostsAsync() {
+export function actFetchPopularPostsAsync({ lang }) {
   return async (dispatch, getState) => {
     try {
-      const res = await PostsService.getPopularList();
+      const res = await PostsService.getPopularList({ lang });
       const posts = res.data;
 
       dispatch(actFetchPopularPosts(posts))

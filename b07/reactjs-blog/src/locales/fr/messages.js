@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:{"Bài viết mới nhất":"Nouveau poste","Chào buổi sáng, {name}":["Bonjour, ",["name"]]}};
