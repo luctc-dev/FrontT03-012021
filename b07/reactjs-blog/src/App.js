@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import {
-  BrowserRouter,
   Switch,
   Route
 } from "react-router-dom";
@@ -10,13 +9,16 @@ import HomePage from "./pages/HomePage";
 import SearchPage from './pages/SearchPage';
 import PostDetail from './pages/PostDetail';
 import LoginPage from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import { useDispatch } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 import { actFetchCategoriesAsync } from './store/categories/actions';
 import { actFetchMainMenusAsync } from "./store/menus/actions";
 import { actFetchMeInfoAsync } from "./store/auth/actions";
 
 function App() {
   const dispatch = useDispatch();
+  const isDashboard = useRouteMatch('/dashboard');
 
   useEffect(() => {
     dispatch(actFetchCategoriesAsync());
@@ -30,9 +32,9 @@ function App() {
   }, [])
 
   return (
-    <BrowserRouter>
+    <main>
       <div className="wrapper-content">
-        <Header />
+        { !isDashboard && <Header /> }
         
         <Switch>
           <Route path="/login">
@@ -56,14 +58,18 @@ function App() {
             <h1>Trang Đăng ký</h1>
           </Route>
 
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+
           <Route path="/">
             <HomePage />
           </Route>
         </Switch>
         <div className="spacing"></div>
-        <Footer />
+        { !isDashboard && <Footer /> }
       </div>
-    </BrowserRouter>
+    </main>
   );
 }
 

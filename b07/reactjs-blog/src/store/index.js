@@ -8,13 +8,15 @@ import postsReducer from './posts/reducer';
 import categoriesReducer from './categories/reducer';
 import menusReducer from './menus/reducer';
 import commentsReducer from './comments/reducer';
+import userReducer from './user/reducer';
 
 const rootReducers = combineReducers({
   Auth: authReducer,
   Posts: postsReducer,
   Categories: categoriesReducer,
   Menus: menusReducer,
-  Comments: commentsReducer
+  Comments: commentsReducer,
+  User: userReducer
 })
 
 const middleware = applyMiddleware(thunk, logger);
